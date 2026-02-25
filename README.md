@@ -14,7 +14,7 @@ This is a simple template to get you started creating a web app with a restful a
 - **public/dashboard.html:** "view" that represents what the user sees and interacts with in the browser.
 - **public/js/dashboard.js:** "controller" that responds to user interactions with the view, works with the model to send and receive data accordingly, and manipulates the DOM to change what the user sees in the view as a result.
 
-The files listed above are commented fairly extensively and organized with purpose.  The intent is for you to be able to use the existing code as a reference, and easily understand how to add your own code in the right places in order to create new features and therefore build your own app.
+The files listed above are commented fairly extensively and organized with purpose.  The intent is for you to be able to use the existing code as a reference, and easily understand how to add your own code in the right places in order to create new features and therefore build your own app.     KANE CHANGES 1:07pm
 
 ## Features
 -MVC pattern for well-organized code
