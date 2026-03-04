@@ -1,6 +1,17 @@
+:root {
+    --navy:     #074173;
+    --darknavy: #042643;
+    --blue:     #6FC2EC;
+    --mint:     #C2EDE6;
+    --green:    #C5FF95;
+    --gray:     #D3D3D3;
+    --white:    #FFFFFF;
+    --black:    #000000;
+    --fonts: Arial, Helvetica, sans-serif;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    background-color: var(--mint);
     margin: 0;
     padding: 0;
 }
@@ -9,7 +20,7 @@ body {
     max-width: 400px;
     margin: 5% auto;
     padding: 20px;
-    background-color: white;
+    background-color: var(--blue);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -30,11 +41,11 @@ h1 {
     padding: 10px 0;
     border: none;
     cursor: pointer;
-    background-color: #ddd;
+    background-color: var(--gray);
 }
 
 .tab-button.active {
-    background-color: #4caf50;
+    background-color: var(--navy);
     color: white;
 }
 
@@ -57,12 +68,13 @@ input {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .button {
     width: 100%;
     padding: 10px;
-    background-color: #4caf50;
+    background-color: var(--navy);
     color: white;
     border: none;
     border-radius: 5px;
@@ -70,7 +82,7 @@ input {
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: var(--darknavy);
 }
 
 .message {
@@ -85,4 +97,11 @@ input {
 
 .error {
     color: red;
+}
+
+img {
+    height    : 100%;     
+    width     : auto;     
+    max-height: 100px;    
+    object-fit: contain;
 }
