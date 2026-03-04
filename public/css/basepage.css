@@ -41,3 +41,10 @@ body {
 .button:hover {
     background-color: var(--darknavy);
 }
+
+img {
+    height    : 100%;     
+    width     : auto;     
+    max-height: 100px;    
+    object-fit: contain;
+}
