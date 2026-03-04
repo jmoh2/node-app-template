@@ -1,0 +1,43 @@
+:root {
+    --navy:  #074173;
+    --darknavy: #042643;
+    --blue:  #6FC2EC;
+    --mint:  #C2EDE6;
+    --green: #C5FF95;
+    --white: #FFFFFF;
+    --black: #000000;
+    --fonts: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: var(--mint);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: var(--blue);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: var(--fonts);
+    font-weight: bold;
+    line-height: 200%;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--darknavy);
+}
