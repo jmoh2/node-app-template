@@ -180,6 +180,28 @@ app.get('/api/users', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error retrieving email addresses.' });
     }
 });
+
+// Route: Get User Name (for basepage welcome message)
+app.get('/api/user-name', authenticateToken, async (req, res) => {
+    try {
+        const connection = await createConnection();
+
+        const [rows] = await connection.execute('SELECT email FROM user WHERE email = ?', [req.user.email]);
+
+        await connection.end();  // Close connection
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        const userName = rows[0].email.split('@')[0];  // Extract name before '@' symbol
+        res.status(200).json({ name: userName });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error retrieving user name.' });
+    }
+});
+
 //////////////////////////////////////
 //END ROUTES TO HANDLE API REQUESTS
 //////////////////////////////////////

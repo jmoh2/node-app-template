@@ -67,6 +67,35 @@ const DataModel = (function () {
             }
         },
 
+        // Function to fetch the user's name from the server
+        getUserName: async function () {
+            if (!token) {
+                console.error("Token is not set.");
+                return "";
+            }
+
+            try {
+                const response = await fetch('/api/user-name', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': token,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    console.error("Error fetching user name:", await response.json());
+                    return "";
+                }
+
+                const data = await response.json();
+                return data.name;
+            } catch (error) {
+                console.error("Error in API call:", error);
+                return "";
+            }
+        },
+
         //ADD MORE FUNCTIONS HERE TO FETCH DATA FROM THE SERVER
         //AND SEND DATA TO THE SERVER AS NEEDED
     };
