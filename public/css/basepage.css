@@ -45,6 +45,21 @@ body {
     background-color: var(--darknavy);
 }
 
+.logout-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.logout-btn:hover {
+    background-color: darkred;
+}
+
 .dashboard {
     background-color: var(--white);
     padding: 30px;
