@@ -92,33 +92,72 @@ async function authenticateToken(req, res, next) {
 //////////////////////////////////////
 //ROUTES TO HANDLE API REQUESTS
 //////////////////////////////////////
+
+
 // Route: Create Account
 app.post('/api/create-account', async (req, res) => {
-    const { email, password } = req.body;
+    const {
+        email,
+        password,
+        gender,
+        height,
+        weight,
+        age,
+        fitness_goal,
+        exercise_level
+    } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ message: 'Email and password are required.' });
+    if (
+        !email ||
+        !password ||
+        !gender ||
+        !height ||
+        !weight ||
+        !age ||
+        !fitness_goal ||
+        !exercise_level
+    ) {
+        return res.status(400).json({ message: 'All fields are required.' });
     }
 
-    try {
-        const connection = await createConnection();
-        const hashedPassword = await bcrypt.hash(password, 10);  // Hash password
+    let connection;
 
-        const [result] = await connection.execute(
+    try {
+        connection = await createConnection();
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await connection.beginTransaction();
+
+        const [userResult] = await connection.execute(
             'INSERT INTO user (email, password) VALUES (?, ?)',
             [email, hashedPassword]
         );
 
-        await connection.end();  // Close connection
+        const userId = userResult.insertId;
+
+        await connection.execute(
+            `INSERT INTO user_profile
+            (user_id, height, weight, gender, age, fitness_goal, exercise_level)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [userId, height, weight, gender, age, fitness_goal, exercise_level]
+        );
+
+        await connection.commit();
+        await connection.end();
 
         res.status(201).json({ message: 'Account created successfully!' });
     } catch (error) {
-        if (error.code === 'ER_DUP_ENTRY') {
-            res.status(409).json({ message: 'An account with this email already exists.' });
-        } else {
-            console.error(error);
-            res.status(500).json({ message: 'Error creating account.' });
+        if (connection) {
+            await connection.rollback();
+            await connection.end();
         }
+
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({ message: 'An account with this email already exists.' });
+        }
+
+        console.error(error);
+        res.status(500).json({ message: 'Error creating account.' });
     }
 });
 

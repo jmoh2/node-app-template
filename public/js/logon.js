@@ -10,6 +10,9 @@ loginTab.addEventListener('click', () => {
     createAccountForm.classList.remove('active-form');
     loginTab.classList.add('active');
     createAccountTab.classList.remove('active');
+
+    messageEl.textContent = '';
+    messageEl.classList.remove('success', 'error');
 });
 
 createAccountTab.addEventListener('click', () => {
@@ -17,6 +20,9 @@ createAccountTab.addEventListener('click', () => {
     logonForm.classList.remove('active-form');
     createAccountTab.classList.add('active');
     loginTab.classList.remove('active');
+
+    messageEl.textContent = '';
+    messageEl.classList.remove('success', 'error');
 });
 
 // Logon form submission
@@ -50,33 +56,59 @@ logonForm.addEventListener('submit', async (event) => {
 // Create account form submission
 createAccountForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+
     const email = document.getElementById('create-email').value;
     const password = document.getElementById('create-password').value;
+    const gender = document.querySelector('input[name="gender"]:checked')?.value;
+    const height = document.getElementById('height').value;
+    const weight = document.getElementById('weight').value;
+    const age = document.getElementById('age').value;
+    const fitness_goal = document.getElementById('fitness-goal').value;
+    const exercise_level = document.getElementById('exercise-level').value;
 
     try {
         const response = await fetch('/api/create-account', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({
+                email,
+                password,
+                gender,
+                height,
+                weight,
+                age,
+                fitness_goal,
+                exercise_level
+            }),
         });
 
         const result = await response.json();
+
         if (response.ok) {
-            messageEl.textContent = 'Account created successfully! You can now log in.';
-            messageEl.classList.add('success');
-            document.getElementById('login-email').value = email;
-            document.getElementById('login-password').value = password;
+
+            createAccountForm.reset();
+
             logonForm.classList.add('active-form');
             createAccountForm.classList.remove('active-form');
             loginTab.classList.add('active');
             createAccountTab.classList.remove('active');
-        } else {
-            messageEl.textContent = result.message;
-            messageEl.classList.add('error');
+
+            document.getElementById('login-email').value = email;
+            document.getElementById('login-password').value = password;
+
+            messageEl.textContent = 'Account created successfully! You can now log in.';
+            messageEl.classList.remove('error');
+            messageEl.classList.add('success');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        messageEl.textContent = 'An error occurred. Please try again later.';
+     else {
+        messageEl.textContent = result.message;
+        messageEl.classList.remove('success');
         messageEl.classList.add('error');
     }
+} catch (error) {
+    console.error('Error:', error);
+    messageEl.textContent = 'An error occurred. Please try again later.';
+    messageEl.classList.remove('success');
+    messageEl.classList.add('error');
+}
 });
