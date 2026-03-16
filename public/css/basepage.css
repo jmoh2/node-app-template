@@ -4,8 +4,11 @@
     --blue:  #6FC2EC;
     --mint:  #C2EDE6;
     --green: #C5FF95;
+    --forest-green: #228B22;
+    --dark-green: #006400;
     --white: #FFFFFF;
     --black: #000000;
+    --grey: #808080;
     --fonts: Arial, Helvetica, sans-serif;
 }
 
@@ -40,6 +43,48 @@ body {
 
 .button:hover {
     background-color: var(--darknavy);
+}
+
+.logout-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.logout-btn:hover {
+    background-color: darkred;
+}
+
+.dashboard {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: var(--fonts);
+    font-weight: bold;
+    line-height: 200%;
+}
+
+.dashboard-item {
+    width: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--forest-green);
+    color: white;
+    border-radius: 5px;
+    font-family: var(--fonts);
+    font-weight: bold;
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 
 img {

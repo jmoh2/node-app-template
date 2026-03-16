@@ -92,33 +92,72 @@ async function authenticateToken(req, res, next) {
 //////////////////////////////////////
 //ROUTES TO HANDLE API REQUESTS
 //////////////////////////////////////
+
+
 // Route: Create Account
 app.post('/api/create-account', async (req, res) => {
-    const { email, password } = req.body;
+    const {
+        email,
+        password,
+        gender,
+        height,
+        weight,
+        age,
+        fitness_goal,
+        exercise_level
+    } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ message: 'Email and password are required.' });
+    if (
+        !email ||
+        !password ||
+        !gender ||
+        !height ||
+        !weight ||
+        !age ||
+        !fitness_goal ||
+        !exercise_level
+    ) {
+        return res.status(400).json({ message: 'All fields are required.' });
     }
 
-    try {
-        const connection = await createConnection();
-        const hashedPassword = await bcrypt.hash(password, 10);  // Hash password
+    let connection;
 
-        const [result] = await connection.execute(
+    try {
+        connection = await createConnection();
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await connection.beginTransaction();
+
+        const [userResult] = await connection.execute(
             'INSERT INTO user (email, password) VALUES (?, ?)',
             [email, hashedPassword]
         );
 
-        await connection.end();  // Close connection
+        const userId = userResult.insertId;
+
+        await connection.execute(
+            `INSERT INTO user_profile
+            (user_id, height, weight, gender, age, fitness_goal, exercise_level)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [userId, height, weight, gender, age, fitness_goal, exercise_level]
+        );
+
+        await connection.commit();
+        await connection.end();
 
         res.status(201).json({ message: 'Account created successfully!' });
     } catch (error) {
-        if (error.code === 'ER_DUP_ENTRY') {
-            res.status(409).json({ message: 'An account with this email already exists.' });
-        } else {
-            console.error(error);
-            res.status(500).json({ message: 'Error creating account.' });
+        if (connection) {
+            await connection.rollback();
+            await connection.end();
         }
+
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({ message: 'An account with this email already exists.' });
+        }
+
+        console.error(error);
+        res.status(500).json({ message: 'Error creating account.' });
     }
 });
 
@@ -178,6 +217,70 @@ app.get('/api/users', authenticateToken, async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error retrieving email addresses.' });
+    }
+});
+
+// Route: Get User Name (for basepage welcome message)
+app.get('/api/user-name', authenticateToken, async (req, res) => {
+    try {
+        const connection = await createConnection();
+
+        const [rows] = await connection.execute('SELECT email FROM user WHERE email = ?', [req.user.email]);
+
+        await connection.end();  // Close connection
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        const userName = rows[0].email.split('@')[0];  // Extract name before '@' symbol
+        res.status(200).json({ name: userName });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error retrieving user name.' });
+    }
+});
+/// Route: Get User Profile
+app.get('/api/user-profile', authenticateToken, async (req, res) => {
+    try {
+        const connection = await createConnection();
+        const [rows] = await connection.execute(
+            'SELECT height, weight, fitness_goal FROM user_profile WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            [req.user.email]
+        );
+        await connection.end();
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: 'Profile not found.' });
+        }
+
+        res.status(200).json(rows[0]);
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error retrieving profile.' });
+    }
+});
+
+// Route: Update User Profile
+app.put('/api/user-profile', authenticateToken, async (req, res) => {
+    const { height, weight, fitness_goal } = req.body;
+
+    if (!height || !weight || !fitness_goal) {
+        return res.status(400).json({ message: 'Height, weight, and fitness goal are required.' });
+    }
+
+    try {
+        const connection = await createConnection();
+        await connection.execute(
+            'UPDATE user_profile SET height = ?, weight = ?, fitness_goal = ? WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            [height, weight, fitness_goal, req.user.email]
+        );
+        await connection.end();
+
+        res.status(200).json({ message: 'Profile updated successfully!' });
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error updating profile.' });
     }
 });
 //////////////////////////////////////

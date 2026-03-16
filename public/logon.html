@@ -16,6 +16,8 @@
             <button class="tab-button" id="create-account-tab">Create Account</button>
         </div>
 
+        <p id="message" class="message"></p>
+
         <div id="form-container">
             <!-- Logon Form -->
             <form id="logon-form" class="active-form">
@@ -36,10 +38,49 @@
                 <label for="create-password">Password:</label>
                 <input type="password" id="create-password" placeholder="Create your password" required>
 
-                <button type="submit" class="button">Create Account</button>
-            </form>
+                <!-- Gender Radio Options -->
+                <label>Gender:</label>
 
-            <p id="message" class="message"></p>
+                <div class="gender-options">
+                    <label><input type="radio" name="gender" value="male" required> Male</label>
+                    <label><input type="radio" name="gender" value="female"> Female</label>
+                    <label><input type="radio" name="gender" value="other"> Other</label>
+                </div>
+
+                <!-- Height, Weight, Age Selection -->
+                <label for="height">Height (inches):</label>
+                <input type="number" id="height" name="height" min="36" max="96" placeholder="Enter your height"
+                    required>
+
+                <label for="weight">Weight (lbs):</label>
+                <input type="number" id="weight" name="weight" min="50" max="600" placeholder="Enter your weight"
+                    required>
+
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="13" max="120" placeholder="Enter your age" required>
+
+                <!--Fitness Goal Selection-->
+                <label for="fitness-goal">Fitness Goal:</label>
+                <select id="fitness-goal" name="fitness_goal" required>
+                    <option value="" disabled selected hidden>Select your fitness goal</option>
+                    <option value="lose_weight">Lose Weight</option>
+                    <option value="maintain_weight">Maintain Weight</option>
+                    <option value="gain_weight">Gain Weight</option>
+                    <option value="build_muscle">Build Muscle</option>
+                </select>
+
+                <!--Exercise level selection-->
+                <label for="exercise-level">Exercise Level:</label>
+                <select id="exercise-level" name="exercise_level" required>
+                    <option value="" disabled selected>Select your exercise level</option>
+                    <option value="low">Low (little or no exercise)</option>
+                    <option value="moderate">Moderate (exercise 3–4 days/week)</option>
+                    <option value="high">High (exercise 5+ days/week)</option>
+                </select>
+
+                <!--Create Account Button-->
+                <button type="submit" class="button">Create account</button>
+                <p id="message" class="message"></p>
         </div>
     </div>
 
