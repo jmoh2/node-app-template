@@ -240,12 +240,12 @@ app.get('/api/user-name', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error retrieving user name.' });
     }
 });
-// Route: Get User Profile
+/// Route: Get User Profile
 app.get('/api/user-profile', authenticateToken, async (req, res) => {
     try {
         const connection = await createConnection();
         const [rows] = await connection.execute(
-            'SELECT height, weight FROM user_profile WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            'SELECT height, weight, fitness_goal FROM user_profile WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
             [req.user.email]
         );
         await connection.end();
@@ -256,30 +256,30 @@ app.get('/api/user-profile', authenticateToken, async (req, res) => {
 
         res.status(200).json(rows[0]);
     } catch (error) {
-        console.error(error);
+        console.error('DB ERROR:', error);
         res.status(500).json({ message: 'Error retrieving profile.' });
     }
 });
 
 // Route: Update User Profile
 app.put('/api/user-profile', authenticateToken, async (req, res) => {
-    const { height, weight } = req.body;
+    const { height, weight, fitness_goal } = req.body;
 
-    if (!height || !weight) {
-        return res.status(400).json({ message: 'Height and weight are required.' });
+    if (!height || !weight || !fitness_goal) {
+        return res.status(400).json({ message: 'Height, weight, and fitness goal are required.' });
     }
 
     try {
         const connection = await createConnection();
         await connection.execute(
-            'UPDATE user_profile SET height = ?, weight = ? WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
-            [height, weight, req.user.email]
+            'UPDATE user_profile SET height = ?, weight = ?, fitness_goal = ? WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            [height, weight, fitness_goal, req.user.email]
         );
         await connection.end();
 
         res.status(200).json({ message: 'Profile updated successfully!' });
     } catch (error) {
-        console.error(error);
+        console.error('DB ERROR:', error);
         res.status(500).json({ message: 'Error updating profile.' });
     }
 });

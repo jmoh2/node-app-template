@@ -99,7 +99,7 @@ const DataModel = (function () {
         //ADD MORE FUNCTIONS HERE TO FETCH DATA FROM THE SERVER
         //AND SEND DATA TO THE SERVER AS NEEDED
 
-        // Gets the user profile
+        // Gets the user profile for the userProfile files
         getUserProfile: async function () {
         if (!token) {
             console.error("Token is not set.");
@@ -121,10 +121,11 @@ const DataModel = (function () {
         } catch (error) {
             console.error("Error in API call:", error);
             return null;
-        }
-    },
+            }
+        },
 
-    updateUserProfile: async function (height, weight) {
+        // Updates the profile for the userProfile files
+        updateUserProfile: async function (height, weight, fitnessGoal) {
         if (!token) {
             console.error("Token is not set.");
             return false;
@@ -136,7 +137,7 @@ const DataModel = (function () {
                     'Authorization': token,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ height, weight }),
+                body: JSON.stringify({ height, weight, fitness_goal: fitnessGoal }),
             });
             if (!response.ok) {
                 console.error("Error updating profile:", await response.json());
@@ -146,7 +147,7 @@ const DataModel = (function () {
         } catch (error) {
             console.error("Error in API call:", error);
             return false;
-        }
-    },
+            }
+        },
     };
 })();
