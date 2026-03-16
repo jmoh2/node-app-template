@@ -6,16 +6,23 @@
     <title>User Details</title>
 </head>
 <body>
-    <label>Height (cm)</label>
+<h1>Heigh and Weight</h1>
+<br>
+
+<label>Height (inches)</label>
 <input id="height" type="number">
 
 <br><br>
 
-<label>Weight (kg)</label>
+<label>Weight (lbs)</label>
 <input id="weight" type="number">
 
 <br><br>
 
-<button onclick="saveChanges()">Save</button>
+<button onclick="save()">Save</button>
+<p id="result"></p>
+
+<script src="/js/datamodel.js"></script>
+<script src="/js/userprofile.js"></script>
 </body>
 </html>

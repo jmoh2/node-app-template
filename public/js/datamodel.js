@@ -98,5 +98,55 @@ const DataModel = (function () {
 
         //ADD MORE FUNCTIONS HERE TO FETCH DATA FROM THE SERVER
         //AND SEND DATA TO THE SERVER AS NEEDED
+
+        // Gets the user profile
+        getUserProfile: async function () {
+        if (!token) {
+            console.error("Token is not set.");
+            return null;
+        }
+        try {
+            const response = await fetch('/api/user-profile', {
+                method: 'GET',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                console.error("Error fetching profile:", await response.json());
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Error in API call:", error);
+            return null;
+        }
+    },
+
+    updateUserProfile: async function (height, weight) {
+        if (!token) {
+            console.error("Token is not set.");
+            return false;
+        }
+        try {
+            const response = await fetch('/api/user-profile', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ height, weight }),
+            });
+            if (!response.ok) {
+                console.error("Error updating profile:", await response.json());
+                return false;
+            }
+            return true;
+        } catch (error) {
+            console.error("Error in API call:", error);
+            return false;
+        }
+    },
     };
 })();
