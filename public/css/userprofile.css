@@ -1,0 +1,40 @@
+:root {
+    --navy:  #074173;
+    --darknavy: #042643;
+    --blue:  #6FC2EC;
+    --mint:  #C2EDE6;
+    --green: #C5FF95;
+    --forest-green: #228B22;
+    --dark-green: #006400;
+    --white: #FFFFFF;
+    --black: #000000;
+    --grey: #808080;
+    --fonts: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: var(--mint);
+    margin: 10px;
+    padding: 5px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--darknavy);
+}
+
+img {
+    height    : 100%;     
+    width     : auto;     
+    max-height: 100px;    
+    object-fit: contain;
+}
