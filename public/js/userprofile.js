@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const heightInput = document.getElementById('height');
     const weightInput = document.getElementById('weight');
     const fitnessGoalSelect = document.getElementById('fitness_goal');
+    const workoutIntensitySelect = document.getElementById('workout_intensity');
     const result = document.getElementById('result');
 
     // Load and display saved values
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         heightInput.value = profile.height;
         weightInput.value = profile.weight;
         fitnessGoalSelect.value = profile.fitness_goal;
+        workoutIntensitySelect = profile.workout_intensity;
     }
 
     // The function that saves everything
@@ -25,13 +27,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const height = heightInput.value;
         const weight = weightInput.value;
         const fitnessGoal = fitnessGoalSelect.value;
+        const workoutIntensity = workoutIntensitySelect.value;
 
         if (!height || !weight) {
             result.textContent = 'Please enter both height and weight.';
             return;
         }
 
-        const success = await DataModel.updateUserProfile(height, weight, fitnessGoal);
+        const success = await DataModel.updateUserProfile(height, weight, fitnessGoal, workoutIntensity);
         result.textContent = success ? 'Saved successfully!' : 'Error saving profile.';
     };
   // the thing that removes the loading for the drop down 
