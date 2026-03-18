@@ -38,3 +38,12 @@ img {
     max-height: 100px;    
     object-fit: contain;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    background-color: var(--blue);
+}
