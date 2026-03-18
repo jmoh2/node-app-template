@@ -45,3 +45,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (firstOption) firstOption.remove();
 });
 });
+
+  const select = document.getElementById("workout_intensity");
+
+  select.addEventListener("focus", function () {
+      const firstOption = select.querySelector('option[value=""]');
+      if (firstOption) firstOption.remove();
+});
