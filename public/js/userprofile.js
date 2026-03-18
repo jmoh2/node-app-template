@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         heightInput.value = profile.height;
         weightInput.value = profile.weight;
         fitnessGoalSelect.value = profile.fitness_goal;
-        exerciseLevelSelect = profile.exercise_level;
+        exerciseLevelSelect.value = profile.exercise_level;
     }
 
     // The function that saves everything
@@ -38,17 +38,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         result.textContent = success ? 'Saved successfully!' : 'Error saving profile.';
     };
   // the thing that removes the loading for the drop down 
-  const select = document.getElementById("fitness_goal");
-
-  select.addEventListener("focus", function () {
-      const firstOption = select.querySelector('option[value=""]');
-      if (firstOption) firstOption.remove();
+    const fitnessSelect = document.getElementById("fitness_goal");
+    fitnessSelect.addEventListener("focus", function () {
+        const firstOption = fitnessSelect.querySelector('option[value=""]');
+        if (firstOption) firstOption.remove();
+    });
+    const exerciseSelect = document.getElementById("exercise_level");
+    exerciseSelect.addEventListener("focus", function () {
+        const firstOption = exerciseSelect.querySelector('option[value=""]');
+        if (firstOption) firstOption.remove();
+    });
 });
-});
 
-  const select = document.getElementById("exercise_level");
 
-  select.addEventListener("focus", function () {
-      const firstOption = select.querySelector('option[value=""]');
-      if (firstOption) firstOption.remove();
-});
+
+function save() {
+    document.getElementById("result").textContent = "Saved!";
+}

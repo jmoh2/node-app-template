@@ -125,7 +125,7 @@ const DataModel = (function () {
         },
 
         // Updates the profile for the userProfile files
-        updateUserProfile: async function (height, weight, fitnessGoal) {
+        updateUserProfile: async function (height, weight, fitnessGoal, exerciseLevel) {
         if (!token) {
             console.error("Token is not set.");
             return false;
@@ -137,7 +137,7 @@ const DataModel = (function () {
                     'Authorization': token,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ height, weight, fitness_goal: fitnessGoal }),
+                body: JSON.stringify({ height, weight, fitness_goal: fitnessGoal, exercise_level: exerciseLevel }),
             });
             if (!response.ok) {
                 console.error("Error updating profile:", await response.json());

@@ -273,7 +273,7 @@ app.put('/api/user-profile', authenticateToken, async (req, res) => {
         const connection = await createConnection();
         await connection.execute(
             'UPDATE user_profile SET height = ?, weight = ?, fitness_goal = ?, exercise_level = ? WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
-            [height, weight, fitness_goal, workout_intensity, req.user.email]
+            [height, weight, fitness_goal, exercise_level, req.user.email]
         );
         await connection.end();
 
