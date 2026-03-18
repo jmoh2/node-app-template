@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const heightInput = document.getElementById('height');
     const weightInput = document.getElementById('weight');
     const fitnessGoalSelect = document.getElementById('fitness_goal');
-    const workoutIntensitySelect = document.getElementById('workout_intensity');
+    const exerciseLevelSelect = document.getElementById('exercise_level');
     const result = document.getElementById('result');
 
     // Load and display saved values
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         heightInput.value = profile.height;
         weightInput.value = profile.weight;
         fitnessGoalSelect.value = profile.fitness_goal;
-        workoutIntensitySelect = profile.workout_intensity;
+        exerciseLevelSelect = profile.exercise_level;
     }
 
     // The function that saves everything
@@ -27,14 +27,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const height = heightInput.value;
         const weight = weightInput.value;
         const fitnessGoal = fitnessGoalSelect.value;
-        const workoutIntensity = workoutIntensitySelect.value;
+        const exerciseLevel = exerciseLevelSelect.value;
 
         if (!height || !weight) {
             result.textContent = 'Please enter both height and weight.';
             return;
         }
 
-        const success = await DataModel.updateUserProfile(height, weight, fitnessGoal, workoutIntensity);
+        const success = await DataModel.updateUserProfile(height, weight, fitnessGoal, exerciseLevel);
         result.textContent = success ? 'Saved successfully!' : 'Error saving profile.';
     };
   // the thing that removes the loading for the drop down 
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 });
 
-  const select = document.getElementById("workout_intensity");
+  const select = document.getElementById("exercise_level");
 
   select.addEventListener("focus", function () {
       const firstOption = select.querySelector('option[value=""]');
