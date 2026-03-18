@@ -6,6 +6,15 @@
     <title>User Details</title>
     <link rel="stylesheet" href="css/userprofile.css">
 </head>
+
+<!-- for going back to basepage -->
+<button class="button" onclick="goHome()">Back</button>
+<script>
+function goHome() {
+    window.location.href = '/basepage';
+}
+</script>
+
 <body>
 <h1>Height, Weight, and Fitness Goals</h1>
 <br>
@@ -32,7 +41,7 @@
 
 <br><br>
 
-<button onclick="save()">Save</button>
+<button class="button" onclick="save()">Save</button>
 <p id="result"></p>
 
 <script src="/js/datamodel.js"></script>
