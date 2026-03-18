@@ -19,7 +19,7 @@ body {
 }
 
 .button {
-    width: 100%;
+    width: auto;
     padding: 10px;
     background-color: var(--navy);
     color: white;
