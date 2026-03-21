@@ -245,7 +245,7 @@ app.get('/api/user-profile', authenticateToken, async (req, res) => {
     try {
         const connection = await createConnection();
         const [rows] = await connection.execute(
-            'SELECT height, weight, fitness_goal FROM user_profile WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            'SELECT height, weight, fitness_goal, exercise_level FROM user_profile WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
             [req.user.email]
         );
         await connection.end();
@@ -263,17 +263,17 @@ app.get('/api/user-profile', authenticateToken, async (req, res) => {
 
 // Route: Update User Profile
 app.put('/api/user-profile', authenticateToken, async (req, res) => {
-    const { height, weight, fitness_goal } = req.body;
+    const { height, weight, fitness_goal, exercise_level} = req.body;
 
-    if (!height || !weight || !fitness_goal) {
-        return res.status(400).json({ message: 'Height, weight, and fitness goal are required.' });
+    if (!height || !weight || !fitness_goal || !exercise_level) {
+        return res.status(400).json({ message: 'Height, weight, fitness goal, and exercise level are required.' });
     }
 
     try {
         const connection = await createConnection();
         await connection.execute(
-            'UPDATE user_profile SET height = ?, weight = ?, fitness_goal = ? WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
-            [height, weight, fitness_goal, req.user.email]
+            'UPDATE user_profile SET height = ?, weight = ?, fitness_goal = ?, exercise_level = ? WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            [height, weight, fitness_goal, exercise_level, req.user.email]
         );
         await connection.end();
 

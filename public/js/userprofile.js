@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const heightInput = document.getElementById('height');
     const weightInput = document.getElementById('weight');
     const fitnessGoalSelect = document.getElementById('fitness_goal');
+    const exerciseLevelSelect = document.getElementById('exercise_level');
     const result = document.getElementById('result');
 
     // Load and display saved values
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         heightInput.value = profile.height;
         weightInput.value = profile.weight;
         fitnessGoalSelect.value = profile.fitness_goal;
+        exerciseLevelSelect.value = profile.exercise_level;
     }
 
     // The function that saves everything
@@ -25,20 +27,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         const height = heightInput.value;
         const weight = weightInput.value;
         const fitnessGoal = fitnessGoalSelect.value;
+        const exerciseLevel = exerciseLevelSelect.value;
 
         if (!height || !weight) {
             result.textContent = 'Please enter both height and weight.';
             return;
         }
 
-        const success = await DataModel.updateUserProfile(height, weight, fitnessGoal);
+        const success = await DataModel.updateUserProfile(height, weight, fitnessGoal, exerciseLevel);
         result.textContent = success ? 'Saved successfully!' : 'Error saving profile.';
     };
   // the thing that removes the loading for the drop down 
-  const select = document.getElementById("fitness_goal");
+    const fitnessSelect = document.getElementById("fitness_goal");
+    fitnessSelect.addEventListener("focus", function () {
+        const firstOption = fitnessSelect.querySelector('option[value=""]');
+        if (firstOption) firstOption.remove();
+    });
+    const exerciseSelect = document.getElementById("exercise_level");
+    exerciseSelect.addEventListener("focus", function () {
+        const firstOption = exerciseSelect.querySelector('option[value=""]');
+        if (firstOption) firstOption.remove();
+    });
+});
 
-  select.addEventListener("focus", function () {
-      const firstOption = select.querySelector('option[value=""]');
-      if (firstOption) firstOption.remove();
-});
-});
+
+
+function save() {
+    document.getElementById("result").textContent = "Saved!";
+}
