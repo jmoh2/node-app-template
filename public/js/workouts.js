@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("jwtToken");
     const tbody = document.querySelector("#workoutTable tbody");
 
 
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const workouts = data.workouts;
 
         if (!response.ok) {
-            console.error("Failed to fetch workouts:", workouts);
+            console.error("Failed to fetch workouts:", data.message);
             return;
         }
 

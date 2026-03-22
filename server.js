@@ -290,7 +290,7 @@ app.get('/api/workouts', authenticateToken, async (req, res) => {
         const connection = await createConnection();
         const [rows] = await connection.execute(
             `SELECT workout_date, workout_name, workout_type, intensity_level, duration_minutes, calories_burned, notes
-             FROM workout
+             FROM workouts
              WHERE user_id = (SELECT user_id FROM user WHERE email = ?)
              ORDER BY workout_date DESC`,
             [req.user.email]
