@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="css/userprofile.css">
 </head>
 <body>
+    <!-- for going back to basepage -->
+    <button class="button" onclick="goHome()">Back</button>
+    <script>
+    function goHome() {window.location.href = '/basepage';}
+    </script>
+
+    <br><br><br>
+
     <label for="workoutName">Workout Type:</label>
     <input type="text" id="workoutName" name="workoutName">
 
