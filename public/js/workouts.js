@@ -47,15 +47,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Request failed:', result.message || 'Failed to submit workout');
             }
 
+            await renderWorkouts();
+            applyFilters();
+
             console.log('Workout saved:', result);
         } catch (error) {
             console.error('Error submitting workout:', error);
         }
-        
-    })
+
+    });
+});
+
 async function renderWorkouts() {
     const token = localStorage.getItem("jwtToken");
     const tbody = document.querySelector("#workoutTable tbody");
+
+    tbody.innerHTML = "";
 
     try {
         const response = await fetch("/api/workouts", {
@@ -126,7 +133,6 @@ function applyFilters() {
 
         row.style.display = showRow ? "" : "none";
 
-        applyFilters();
     });
 } 
 
@@ -152,16 +158,22 @@ document.addEventListener("DOMContentLoaded", () => {
         renderWorkouts();
     });
 
-    document.getElementById("typeFilter").addEventListener("change", applyFilters);
-    document.getElementById("intensityFilter").addEventListener("change", applyFilters);
-    document.getElementById("dateFrom").addEventListener("change", applyFilters);
-    document.getElementById("dateTo").addEventListener("change", applyFilters);
-    document.getElementById("nameFilter").addEventListener("input", applyFilters);
-    document.getElementById("durationMin").addEventListener("input", applyFilters);
-    document.getElementById("durationMax").addEventListener("input", applyFilters);
-    document.getElementById("caloriesMin").addEventListener("input", applyFilters);
-    document.getElementById("caloriesMax").addEventListener("input", applyFilters);
-    document.getElementById("clearFiltersButton").addEventListener("click", clearFilters);
+    document.getElementById("clearFiltersButton").addEventListener("click", () => {
+        clearFilters();
+    });
 
+    document.getElementById("applyFiltersButton").addEventListener("click", () => {
+        applyFilters();
+    });
+
+    // document.getElementById("typeFilter").addEventListener("change", applyFilters);
+    // document.getElementById("intensityFilter").addEventListener("change", applyFilters);
+    // document.getElementById("dateFrom").addEventListener("change", applyFilters);
+    // document.getElementById("dateTo").addEventListener("change", applyFilters);
+    // document.getElementById("nameFilter").addEventListener("input", applyFilters);
+    // document.getElementById("durationMin").addEventListener("input", applyFilters);
+    // document.getElementById("durationMax").addEventListener("input", applyFilters);
+    // document.getElementById("caloriesMin").addEventListener("input", applyFilters);
+    // document.getElementById("caloriesMax").addEventListener("input", applyFilters);
     
 });
