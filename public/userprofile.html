@@ -19,6 +19,7 @@ function goHome() {
 <h1>Height, Weight, and Fitness Goals</h1>
 <br>
 
+<div class="container" >
 <h2>Change Stats: </h2>
 <label>Height (inches)</label>
 <input id="height" type="number">
@@ -30,27 +31,29 @@ function goHome() {
 
 <br><br>
 
-<label>Fitness Goal</label>
-<select id="fitness_goal">
-    <option value="" disabled selected>-- Loading --</option>  <!-- This is my favorite feature it disapears -->
-    <option value="lose weight">Lose Weight</option>
-    <option value="build muscle">Build Muscle</option>
-    <option value="eat healthy">Eat Healthy</option>
-    <option value="maintain weight">Maintain Weight</option>
-</select>
+    <label>Fitness Goal</label>
+    <select id="fitness_goal">
+        <option value="" disabled selected>-- Loading --</option>  <!-- This is my favorite feature it disapears -->
+        <option value="lose weight">Lose Weight</option>
+        <option value="build muscle">Build Muscle</option>
+        <option value="eat healthy">Eat Healthy</option>
+        <option value="maintain weight">Maintain Weight</option>
+    </select>
 
-<br><br>
+    <br><br>
 
-<label>Exercise Level</label>
-<select id="exercise_level">
-    <option value="" disabled selected>-- Loading --</option>
-    <option value="low">Low</option>
-    <option value="moderate">Moderate</option>
-    <option value="high">High</option>
-</select>
+    <label>Exercise Level</label>
+    <select id="exercise_level">
+        <option value="" disabled selected>-- Loading --</option>
+        <option value="low">Low</option>
+        <option value="moderate">Moderate</option>
+        <option value="high">High</option>
+    </select>
 
-<button class="button" onclick="save()">Save</button>
-<p id="result"></p>
+    <button class="button" onclick="save()">Save</button>
+    <p id="result"></p>
+
+</div>
 
 <script src="/js/userprofile.js"></script>
 <script src="/js/datamodel.js"></script>
