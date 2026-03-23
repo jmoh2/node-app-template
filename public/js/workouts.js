@@ -1,7 +1,6 @@
-document.addEventListener("DOMContentLoaded", async () => {
+async function renderWorkouts() {
     const token = localStorage.getItem("jwtToken");
     const tbody = document.querySelector("#workoutTable tbody");
-
 
     try {
         const response = await fetch("/api/workouts", {
@@ -11,12 +10,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         const data = await response.json();
-        const workouts = data.workouts;
 
         if (!response.ok) {
             console.error("Failed to fetch workouts:", data.message);
             return;
         }
+
+        const workouts = data.workouts;
 
         workouts.forEach(workout => {
             const row = document.createElement("tr");
@@ -31,7 +31,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
             tbody.appendChild(row);
         });
+
     } catch (error) {
         console.error("Error fetching workouts:", error);
     }
+}
+
+document.addEventListener("DOMContentLoaded", () => {renderWorkouts();
+    document.getElementById("refreshButton").addEventListener("click", () => {
+        renderWorkouts();
+    });
 });
