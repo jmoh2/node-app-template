@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="css/userprofile.css">
 </head>
 <body>
+     <!-- Suggested Workout Card -->
+    <div id="suggestionCard" style="
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        background: #f0f4ff;
+        border: 1px solid #c0c8f0;
+        border-radius: 10px;
+        padding: 14px 18px;
+        max-width: 240px;
+        font-size: 14px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        z-index: 999;
+    ">
+        <strong>Suggested Workout</strong>
+        <div id="suggestionContent" style="margin-top: 8px; color: #333;">Loading...</div>
+        <button id="logSuggestionButton" style="margin-top: 10px; width: 100%;">Log This Workout</button>
+        <p id="suggestionResult" style="font-size: 12px; margin-top: 6px; color: green;"></p>
+    </div>
+
     <!-- for going back to basepage -->
     <button class="button" onclick="goHome()">Back</button>
     <script>
@@ -124,16 +144,15 @@
         </thead>
         <tbody></tbody>
     </table>
-
+    
    
 
 <br>
 
 
     suggestions here or in top corner
-    <script src="/js/workouts.js"></script>
     <script src="/js/datamodel.js"></script>
-
+    <script src="/js/workouts.js"></script>
 
 
 </body>

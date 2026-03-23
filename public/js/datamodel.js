@@ -175,5 +175,53 @@ const DataModel = (function () {
             return false;
             }
         },
+        getSuggestedWorkout: async function () {
+            if (!token) {
+                console.error("Token is not set.");
+                return null;
+            }
+            try {
+                const response = await fetch('/api/suggested-workout', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': token,
+                        'Content-Type': 'application/json',
+                    },
+                });
+            if (!response.ok) {
+                console.error("Error fetching suggested workout:", await response.json());
+                return null;
+            }
+            return await response.json();
+            } catch (error) {
+                console.error("Error in API call:", error);
+                return null;
+            }
+        },
+
+        logSuggestedWorkout: async function (workout) {
+            if (!token) {
+                console.error("Token is not set.");
+                return false;
+            }
+            try {
+                const response = await fetch('/api/log-suggested-workout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': token,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(workout),
+                });
+                if (!response.ok) {
+                    console.error("Error logging suggested workout:", await response.json());
+                    return false;
+                }
+                return true;
+            } catch (error) {
+                console.error("Error in API call:", error);
+                return false;
+            }
+        },
     };
 })();

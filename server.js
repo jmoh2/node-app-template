@@ -83,6 +83,7 @@ async function authenticateToken(req, res, next) {
             res.status(500).json({ message: 'Database error during authentication.' });
         }
     });
+    
 }
 /////////////////////////////////////////////////
 //END HELPER FUNCTIONS AND AUTHENTICATION MIDDLEWARE
@@ -350,6 +351,65 @@ app.get('/api/workouts', authenticateToken, async (req, res) => {
     } catch (error) {
         console.error('DB ERROR:', error);
         res.status(500).json({ message: 'Error retrieving workouts.' });
+    }
+});
+// Route: Get Suggested Workout based on user's fitness goal
+app.get('/api/suggested-workout', authenticateToken, async (req, res) => {
+    try {
+        const connection = await createConnection();
+
+        // Get user's fitness goal
+        const [profileRows] = await connection.execute(
+            'SELECT fitness_goal FROM user_profile WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            [req.user.email]
+        );
+
+        if (profileRows.length === 0) {
+            await connection.end();
+            return res.status(404).json({ message: 'Profile not found.' });
+        }
+
+        const fitnessGoal = profileRows[0].fitness_goal;
+
+        // Get a random suggested workout matching the user's goal
+        const [workoutRows] = await connection.execute(
+            'SELECT * FROM suggested_workouts WHERE fitness_goal = ? ORDER BY RAND() LIMIT 1',
+            [fitnessGoal]
+        );
+
+        await connection.end();
+
+        if (workoutRows.length === 0) {
+            return res.status(404).json({ message: 'No suggested workout found.' });
+        }
+
+        res.status(200).json(workoutRows[0]);
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error retrieving suggested workout.' });
+    }
+});
+
+// Route: Log a suggested workout
+app.post('/api/log-suggested-workout', authenticateToken, async (req, res) => {
+    const { workout_name, workout_type, intensity_level, duration_minutes, calories_burned, notes } = req.body;
+
+    try {
+        const connection = await createConnection();
+
+        const today = new Date().toISOString().split('T')[0];
+
+        await connection.execute(
+            `INSERT INTO workouts (user_id, workout_name, workout_type, intensity_level, duration_minutes, calories_burned, notes, workout_date)
+             VALUES ((SELECT user_id FROM user WHERE email = ?), ?, ?, ?, ?, ?, ?, ?)`,
+            [req.user.email, workout_name, workout_type, intensity_level, duration_minutes, calories_burned, notes, today]
+        );
+
+        await connection.end();
+        res.status(201).json({ message: 'Workout logged successfully!' });
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error logging workout.' });
     }
 });
 //////////////////////////////////////
