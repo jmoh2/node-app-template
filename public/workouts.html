@@ -42,14 +42,57 @@
 
     <br><br>
 
-    <select id="workoutTableFilter" name="workoutTableFilter">
-        <option value="None">None</option>
-        <option value="Date">Date</option>
-        <option value="Name">Name</option>
-        <option value="Type">Type</option>
-        <option value="Duration">Duration</option>
-        <option value="Intensity">Intensity</option>
+    <!-- Workout Table -->
+
+    <label for="dateFrom">From:</label>
+    <input type="date" id="dateFrom">
+    <label for="dateTo">To:</label>
+    <input type="date" id="dateTo">
+
+    <br>
+    
+    <label for="nameFilter">Workout Name:</label>
+    <input type="text" id="nameFilter">
+
+    <br>
+
+    <label for="typeFilter">Workout Type:</label>
+    <select id="typeFilter">
+        <option value="">All</option>
+        <option value="cardio">Cardio</option>
+        <option value="strength_training">Strength Training</option>
+        <option value="flexibility">Flexibility</option>
+        <option value="balance_training">Balance Training</option>
     </select>
+
+    <br>
+
+    <label for="intensityFilter">Intensity:</label>
+    <select id="intensityFilter">
+        <option value="">All</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select>
+
+    <br>
+    
+    <label for="durationMin">Min Duration:</label>
+    <input type="number" id="durationMin">
+    <label for="durationMax">Max Duration:</label>
+    <input type="number" id="durationMax">
+
+    <br>
+
+    <label for="caloriesMin">Min Calories:</label>
+    <input type="number" id="caloriesMin">
+    <label for="caloriesMax">Max Calories:</label>
+    <input type="number" id="caloriesMax">
+
+    <br>
+
+
+    <button id="clearFiltersButton" type="button">Clear Filters</button>
 
     <button id="refreshButton">Refresh Table</button>
     
