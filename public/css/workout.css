@@ -42,6 +42,16 @@ body {
     cursor: pointer;
 }
 
+.tablebutton {
+    width: auto;
+    padding: 5px;
+    background-color: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .button:hover {
     background-color: var(--darknavy);
 }
