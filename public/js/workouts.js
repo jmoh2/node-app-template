@@ -200,15 +200,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("applyFiltersButton").addEventListener("click", () => {
         applyFilters();
     });
-
-    // document.getElementById("typeFilter").addEventListener("change", applyFilters);
-    // document.getElementById("intensityFilter").addEventListener("change", applyFilters);
-    // document.getElementById("dateFrom").addEventListener("change", applyFilters);
-    // document.getElementById("dateTo").addEventListener("change", applyFilters);
-    // document.getElementById("nameFilter").addEventListener("input", applyFilters);
-    // document.getElementById("durationMin").addEventListener("input", applyFilters);
-    // document.getElementById("durationMax").addEventListener("input", applyFilters);
-    // document.getElementById("caloriesMin").addEventListener("input", applyFilters);
-    // document.getElementById("caloriesMax").addEventListener("input", applyFilters);
-    
+ 
 });
