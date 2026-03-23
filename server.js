@@ -332,6 +332,26 @@ app.put('/api/user-profile', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error updating profile.' });
     }
 });
+
+// Route: Get User Workouts
+app.get('/api/workouts', authenticateToken, async (req, res) => {
+    try {
+        const connection = await createConnection();
+        const [rows] = await connection.execute(
+            `SELECT workout_date, workout_name, workout_type, intensity_level, duration_minutes, calories_burned, notes
+             FROM workouts
+             WHERE user_id = (SELECT user_id FROM user WHERE email = ?)
+             ORDER BY workout_date DESC`,
+            [req.user.email]
+        );
+        await connection.end();
+
+        res.status(200).json({ workouts: rows });
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error retrieving workouts.' });
+    }
+});
 //////////////////////////////////////
 //END ROUTES TO HANDLE API REQUESTS
 //////////////////////////////////////
