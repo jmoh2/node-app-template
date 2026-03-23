@@ -373,9 +373,9 @@ app.get('/api/suggested-workout', authenticateToken, async (req, res) => {
 
         // Get a random suggested workout matching the user's goal
         const [workoutRows] = await connection.execute(
-            'SELECT * FROM suggested_workouts WHERE fitness_goal = ? ORDER BY RAND() LIMIT 1',
-            [fitnessGoal]
-        );
+    'SELECT * FROM workout_suggestions WHERE fitness_goal = ? ORDER BY RAND() LIMIT 1',
+    [fitnessGoal]
+    );
 
         await connection.end();
 

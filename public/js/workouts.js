@@ -56,6 +56,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     });
+    // Load and display suggested workout
+async function loadSuggestedWorkout() {
+    const suggestion = await DataModel.getSuggestedWorkout();
+    const content = document.getElementById('suggestionContent');
+    const logButton = document.getElementById('logSuggestionButton');
+    const suggestionResult = document.getElementById('suggestionResult');
+
+    if (!suggestion) {
+        content.textContent = 'No suggestion available.';
+        logButton.style.display = 'none';
+        return;
+    }
+
+    content.innerHTML = `
+        <b>${suggestion.workout_name}</b><br>
+        Type: ${suggestion.workout_type}<br>
+        Intensity: ${suggestion.intensity_level}<br>
+        Duration: ${suggestion.duration_minutes} mins<br>
+        Calories: ${suggestion.calories_burned}
+    `;
+
+    logButton.addEventListener('click', async () => {
+        const success = await DataModel.logSuggestedWorkout(suggestion);
+        if (success) {
+            suggestionResult.textContent = 'Logged!';
+            await renderWorkouts();
+            applyFilters();
+        } else {
+            suggestionResult.textContent = 'Error logging workout.';
+            suggestionResult.style.color = 'red';
+        }
+    });
+}
+
+loadSuggestedWorkout();
 });
 
 async function renderWorkouts() {
