@@ -203,6 +203,54 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// Route: Send Workout Data (Protected Route)
+app.post('/api/workouts', authenticateToken, async (req, res) => {
+     const { workoutName, workoutType, workoutIntensity, duration, notes } = req.body;
+
+    if (!workoutName || !workoutType || !workoutIntensity || !duration) {
+        return res.status(400).json({ message: 'All workout fields except notes are required.' });
+    }
+
+    let connection;
+
+    try {
+        connection = await createConnection();
+
+        console.log('Token user:', req.user);
+
+        const [userRows] = await connection.execute(
+            'SELECT user_id FROM user WHERE email = ?',
+            [req.user.email]
+        );
+
+        console.log('User lookup result:', userRows);
+
+        if (userRows.length === 0) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        const userId = userRows[0].user_id;
+
+        const [insertResult] = await connection.execute(
+            `INSERT INTO workouts
+             (user_id, workout_name, workout_type, intensity_level, duration_minutes, notes)
+             VALUES (?, ?, ?, ?, ?, ?)`,
+            [userId, workoutName, workoutType, workoutIntensity, duration, notes || null]
+        );
+
+        console.log('Insert result:', insertResult);
+
+        res.status(201).json({ message: 'Workout data saved successfully!' });
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error saving workout data.' });
+    } finally {
+        if (connection) {
+            await connection.end();
+        }
+    }
+});
+
 // Route: Get All Email Addresses
 app.get('/api/users', authenticateToken, async (req, res) => {
     try {
@@ -260,6 +308,7 @@ app.get('/api/user-profile', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error retrieving profile.' });
     }
 });
+
 
 // Route: Update User Profile
 app.put('/api/user-profile', authenticateToken, async (req, res) => {

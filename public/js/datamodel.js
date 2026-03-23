@@ -67,6 +67,32 @@ const DataModel = (function () {
             }
         },
 
+        // Function to get userId from the server
+        getUserId: async function () {
+            if (!token) {
+                console.error("Token is not set.");
+                return null;
+            }
+            try {
+                const response = await fetch('/api/user-id', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': token,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (!response.ok) {
+                    console.error("Error fetching user ID:", await response.json());
+                    return null;
+                }
+                const data = await response.json();
+                return data.userId;
+            } catch (error) {
+                console.error("Error in API call:", error);
+                return null;
+            }
+        },
+
         // Function to fetch the user's name from the server
         getUserName: async function () {
             if (!token) {

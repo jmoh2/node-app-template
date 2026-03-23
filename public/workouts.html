@@ -18,12 +18,18 @@
     <label for="workoutName">Workout Type:</label>
     <input type="text" id="workoutName" name="workoutName">
 
+    <!-- Dropdown menu with broad workout options: Cardio, Strength Training, HIIT, Flexibility/Yoga, Sports, Core, Recovery, and Other -->
     <label for="workoutType">Workout Type:</label>
     <select id="workoutType" name="workoutType">
         <option value="cardio">Cardio</option>
         <option value="strength">Strength Training</option>
-        <option value="flexibility">Flexibility</option>
+        <option value="hiit">HIIT</option>
+        <option value="flexibility">Flexibility/Yoga</option>
+        <option value="sports">Sports</option>
+        <option value="core">Core</option>
+        <option value="recovery">Recovery</option>
         <option value="balance">Balance Training</option>
+        <option value="other">Other</option>
     </select>
 
     <label for="workoutIntensity">Intensity:</label>
@@ -37,8 +43,13 @@
     <input type="number" id="duration" name="duration" min="1">
 
     <br>
+
+    <label for="notes">Notes:</label>
+    <input type="text" id="notes" name="notes">
+
+    <br>
     
-    <button type="submit">Submit</button>
+    <button id="submit">Submit</button>
 
     <br><br>
 
@@ -67,5 +78,7 @@
 
 
     suggestions here or in top corner
+    <script src="/js/workouts.js"></script>
+    <script src="/js/datamodel.js"></script>
 </body>
 </html>
