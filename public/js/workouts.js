@@ -56,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     });
-    // Load and display suggested workout
+   
+// Load and display suggested workout
 async function loadSuggestedWorkout() {
     const suggestion = await DataModel.getSuggestedWorkout();
     const content = document.getElementById('suggestionContent');
@@ -118,7 +119,7 @@ async function renderWorkouts() {
         workouts.forEach(workout => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${workout.workout_date}</td>
+                <td>${new Date(workout.workout_date).toLocaleDateString("en-US")}</td>
                 <td>${workout.workout_name}</td>
                 <td>${workout.workout_type}</td>
                 <td>${workout.intensity_level}</td>
@@ -134,6 +135,7 @@ async function renderWorkouts() {
     }
 }
 
+// Function to apply filters to the workout table
 function applyFilters() {
 
     const tbody = document.querySelector("#workoutTable tbody");
@@ -171,7 +173,7 @@ function applyFilters() {
     });
 } 
 
-
+// Function to clear all filters and show all workouts
 function clearFilters() {
     document.getElementById("nameFilter").value = "";
     document.getElementById("dateFrom").value = "";
