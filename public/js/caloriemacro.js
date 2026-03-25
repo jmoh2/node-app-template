@@ -1,3 +1,86 @@
+// Function to add meals from user input to the backend
+async function addMeal(mealData) {
+    
+    const dateInput = document.getElementById("mealDate").value;
+    const mealTypeInput = document.getElementById("mealType").value;
+    const descriptionInput = document.getElementById("mealDescription").value;
+    const caloriesInput = parseInt(document.getElementById("mealCalories").value);
+    const proteinInput = parseInt(document.getElementById("mealProtein").value);
+    const fatsInput = parseInt(document.getElementById("mealFats").value);
+    const carbsInput = parseInt(document.getElementById("mealCarbs").value);
+
+    if (!dateInput || !mealTypeInput || !descriptionInput || isNaN(caloriesInput) || isNaN(proteinInput) || isNaN(fatsInput) || isNaN(carbsInput)) {
+        alert("Please fill in all meal fields correctly.");
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/meals', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                date: dateInput,
+                type: mealTypeInput,
+                description: descriptionInput,
+                calories: caloriesInput,
+                protein: proteinInput,
+                fats: fatsInput,
+                carbs: carbsInput
+            })
+        });
+        const result = await response.json();
+        console.log('Meal added:', result);
+    } catch (error) {
+        console.error('Error adding meal:', error);
+    }
+}
+
+
+// render meals function
+
+async function renderMeals() {
+    const token = localStorage.getItem("jwtToken");
+    const tbody = document.querySelector("#mealTable tbody");
+
+    tbody.innerHTML = "";
+
+    try {
+        const response = await fetch("/api/meals", {
+            headers: {
+                "Authorization": token
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Failed to fetch meals:", data.message);
+            return;
+        }
+
+        const meals = data.meals;
+
+        meals.forEach(meal => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${new Date(meal.meal_date).toLocaleDateString("en-US")}</td>
+                <td>${meal.meal_type}</td>
+                <td>${meal.description}</td>
+                <td>${meal.calories}</td>
+                <td>${meal.protein}</td>
+                <td>${meal.fats}</td>
+                <td>${meal.carbs}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error("Error fetching meals:", error);
+    }
+}
+
 // Function to apply filters to the meal table
 
 function applyFilters() {
@@ -62,6 +145,10 @@ function clearFilters() {
 
 document.addEventListener("DOMContentLoaded", () => {
     renderMeals();
+
+    document.getElementById("addMealButton").addEventListener("click", () => {
+        addMeal();
+    });
     
     document.getElementById("refreshButton").addEventListener("click", () => {
         renderMeals();
