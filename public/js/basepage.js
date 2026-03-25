@@ -33,6 +33,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const userName = await DataModel.getUserName();
         welcomeHeading.textContent = `Welcome to GymRat, ${userName}!`;
     }
+
+    async function totalWorkoutCount() {
+        const token = localStorage.getItem("jwtToken");
+
+        try {
+            const res = await fetch('/api/workout-count', {
+                headers: {
+                    "Authorization": token
+                }
+            });
+            const data = await res.json();
+            document.getElementById('workoutCount').textContent = data.total;
+        } catch (error) {
+            console.error('Error fetching workout count:', error);
+        }
+    }
+
+    totalWorkoutCount();
     // Fetch the user's name and display a welcome message based on username and span id welcomeMessage
     
 

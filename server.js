@@ -416,14 +416,16 @@ app.get('/api/meals', authenticateToken, async (req, res) => {
 app.get('/api/workout-count', authenticateToken, async (req, res) => {
     try {
         const connection = await createConnection();
-        const [rows] = await connection.execute(
-            'COUNT workout_id FROM workouts WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+        const [result] = await connection.execute(
+            `SELECT COUNT(*) AS total_workouts
+             FROM workouts
+             WHERE user_id = (SELECT user_id FROM user WHERE email = ?)`,
             [req.user.email]
         );
         await connection.end();
 
-        const workoutCount = rows[0]['COUNT workout_id'] || 0;
-        res.status(200).json({ workoutCount });
+        const workoutCount = result[0].total_workouts || 0;
+        res.status(200).json({ total: workoutCount });
     } catch (error) {
         console.error('DB ERROR:', error);
         res.status(500).json({ message: 'Error retrieving workout count.' });
