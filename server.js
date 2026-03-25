@@ -206,9 +206,9 @@ app.post('/api/login', async (req, res) => {
 
 // Route: Send Workout Data (Protected Route)
 app.post('/api/workouts', authenticateToken, async (req, res) => {
-     const { workoutName, workoutType, workoutIntensity, duration, notes } = req.body;
+     const { workoutName, workoutType, workoutIntensity, duration, notes, date, caloriesBurned } = req.body;
 
-    if (!workoutName || !workoutType || !workoutIntensity || !duration) {
+    if (!workoutName || !workoutType || !workoutIntensity || !duration || !date || !caloriesBurned) {
         return res.status(400).json({ message: 'All workout fields except notes are required.' });
     }
 
@@ -234,9 +234,9 @@ app.post('/api/workouts', authenticateToken, async (req, res) => {
 
         const [insertResult] = await connection.execute(
             `INSERT INTO workouts
-             (user_id, workout_name, workout_type, intensity_level, duration_minutes, notes)
-             VALUES (?, ?, ?, ?, ?, ?)`,
-            [userId, workoutName, workoutType, workoutIntensity, duration, notes || null]
+             (user_id, workout_name, workout_type, intensity_level, duration_minutes, notes, workout_date, calories_burned)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [userId, workoutName, workoutType, workoutIntensity, duration, notes || null, date, caloriesBurned]
         );
 
         console.log('Insert result:', insertResult);
