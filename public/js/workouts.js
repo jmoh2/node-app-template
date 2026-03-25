@@ -19,8 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const workoutIntensity = document.getElementById('workoutIntensity').value;
         const duration = document.getElementById('duration').value;
         const notes = document.getElementById('notes').value;
+        const date = document.getElementById('date').value;
+        const caloriesBurned = document.getElementById('caloriesBurned').value;
         
-        if (!workoutName || !workoutType || !workoutIntensity || !duration) {
+        if (!workoutName || !workoutType || !workoutIntensity || !duration || !date || !caloriesBurned) {
             console.error('Please fill in all required fields.');
             return;
         }
@@ -36,8 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     workoutName,
                     workoutType,
                     workoutIntensity,
+                    caloriesBurned,
                     duration,
-                    notes
+                    notes,
+                    date
                 })
             });
 
