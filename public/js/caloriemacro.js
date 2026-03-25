@@ -38,6 +38,49 @@ async function addMeal(mealData) {
 }
 
 
+// render meals function
+
+async function renderMeals() {
+    const token = localStorage.getItem("jwtToken");
+    const tbody = document.querySelector("#mealTable tbody");
+
+    tbody.innerHTML = "";
+
+    try {
+        const response = await fetch("/api/meals", {
+            headers: {
+                "Authorization": token
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Failed to fetch meals:", data.message);
+            return;
+        }
+
+        const meals = data.meals;
+
+        meals.forEach(meal => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${new Date(meal.meal_date).toLocaleDateString("en-US")}</td>
+                <td>${meal.meal_type}</td>
+                <td>${meal.description}</td>
+                <td>${meal.calories}</td>
+                <td>${meal.protein}</td>
+                <td>${meal.fats}</td>
+                <td>${meal.carbs}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error("Error fetching meals:", error);
+    }
+}
+
 // Function to apply filters to the meal table
 
 function applyFilters() {
