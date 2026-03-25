@@ -374,6 +374,24 @@ app.get('/api/meals', authenticateToken, async (req, res) => {
     }
 });
 
+// Route: Total Number of Workouts Logged
+app.get('/api/workout-count', authenticateToken, async (req, res) => {
+    try {
+        const connection = await createConnection();
+        const [rows] = await connection.execute(
+            'COUNT workout_id FROM workouts WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            [req.user.email]
+        );
+        await connection.end();
+
+        const workoutCount = rows[0]['COUNT workout_id'] || 0;
+        res.status(200).json({ workoutCount });
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error retrieving workout count.' });
+    }
+});
+
 // Route: Get Suggested Workout based on user's fitness goal
 app.get('/api/suggested-workout', authenticateToken, async (req, res) => {
     try {
