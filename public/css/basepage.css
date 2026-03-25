@@ -13,11 +13,12 @@
 }
 
 .welcome-message {
-    background-color: var(--green);
-    padding: 10px;
+    background-color: var(--darknavy);
+    color: white;
+    padding: 20px;
     border-radius: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
     margin-top: 20px;
     font-family: var(--fonts);
