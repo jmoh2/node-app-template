@@ -204,6 +204,44 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// Route: Send meal data (Protected Route)
+app.post('/api/meals', authenticateToken, async (req, res) => {
+    const { date, type, description, calories, protein, fats, carbs } = req.body;
+
+    if (!date || !type || !description || !calories || !protein || !fats || !carbs) {
+        return res.status(400).json({ message: 'All meal fields are required.' });
+    }
+
+    let connection;
+    try {
+        connection = await createConnection();
+        const [userRows] = await connection.execute(
+            'SELECT user_id FROM user WHERE email = ?',
+            [req.user.email]
+        );
+        if (userRows.length === 0) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+        const userId = userRows[0].user_id;
+
+        await connection.execute(
+            `INSERT INTO meals
+             (user_id, meal_date, meal_type, description, calories, protein, fats, carbs)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [userId, date, type, description, calories, protein, fats, carbs]
+        );
+        await connection.end();
+        res.status(201).json({ message: 'Meal data saved successfully!' });
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error saving meal data.' });
+    } finally {
+        if (connection) {
+            await connection.end();
+        }
+    }
+});
+
 // Route: Send Workout Data (Protected Route)
 app.post('/api/workouts', authenticateToken, async (req, res) => {
      const { workoutName, workoutType, workoutIntensity, duration, notes, date, caloriesBurned } = req.body;
