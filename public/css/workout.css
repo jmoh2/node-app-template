@@ -39,6 +39,17 @@
     line-height: 200%;
 }
 
+.filter-container {
+    background-color: var(--blue);
+    padding: 5px;
+    padding-left: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 40%;
+    font-family: var(--fonts);
+    line-height: 120%;
+}
+
 body {
     background-color: var(--mint);
     margin: 10px;
