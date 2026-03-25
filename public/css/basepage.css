@@ -12,6 +12,12 @@
     --fonts: Arial, Helvetica, sans-serif;
 }
 
+.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .welcome-message {
     background-color: var(--darknavy);
     color: white;
