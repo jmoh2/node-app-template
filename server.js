@@ -353,6 +353,27 @@ app.get('/api/workouts', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error retrieving workouts.' });
     }
 });
+
+// Route: Get User Meals
+app.get('/api/meals', authenticateToken, async (req, res) => {
+    try {
+        const connection = await createConnection();
+        const [rows] = await connection.execute(
+            `SELECT meal_date, meal_type, description, calories, protein, fats, carbs
+             FROM meals
+             WHERE user_id = (SELECT user_id FROM user WHERE email = ?)
+             ORDER BY meal_date DESC`,
+            [req.user.email]
+        );
+        await connection.end();
+
+        res.status(200).json({ meals: rows });
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error retrieving meals.' });
+    }
+});
+
 // Route: Get Suggested Workout based on user's fitness goal
 app.get('/api/suggested-workout', authenticateToken, async (req, res) => {
     try {
