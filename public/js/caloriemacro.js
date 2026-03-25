@@ -145,6 +145,10 @@ function clearFilters() {
 
 document.addEventListener("DOMContentLoaded", () => {
     renderMeals();
+
+    document.getElementById("addMealButton").addEventListener("click", () => {
+        addMeal();
+    });
     
     document.getElementById("refreshButton").addEventListener("click", () => {
         renderMeals();
