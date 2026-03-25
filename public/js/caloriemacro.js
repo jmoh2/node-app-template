@@ -4,10 +4,10 @@ async function addMeal(mealData) {
     const dateInput = document.getElementById("mealDate").value;
     const mealTypeInput = document.getElementById("mealType").value;
     const descriptionInput = document.getElementById("mealDescription").value;
-    const caloriesInput = parseInt(document.getElementById("mealCalories").value);
-    const proteinInput = parseInt(document.getElementById("mealProtein").value);
-    const fatsInput = parseInt(document.getElementById("mealFats").value);
-    const carbsInput = parseInt(document.getElementById("mealCarbs").value);
+    const caloriesInput = parseInt(document.getElementById("calories").value);
+    const proteinInput = parseInt(document.getElementById("protein").value);
+    const fatsInput = parseInt(document.getElementById("fats").value);
+    const carbsInput = parseInt(document.getElementById("carbs").value);
 
     if (!dateInput || !mealTypeInput || !descriptionInput || isNaN(caloriesInput) || isNaN(proteinInput) || isNaN(fatsInput) || isNaN(carbsInput)) {
         alert("Please fill in all meal fields correctly.");
