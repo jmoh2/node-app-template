@@ -1,42 +1,60 @@
 // Function to add meals from user input to the backend
-async function addMeal(mealData) {
+document.addEventListener("DOMContentLoaded", () => {
+
+    const token = localStorage.getItem('jwtToken');
+        if (!token) {
+            window.location.href = '/';
+        } else {
+            DataModel.setToken(token);
+        }
+
+    const addMealButton = document.getElementById("addMealButton");
+
+    async function addMeal(mealData) {
     
-    const dateInput = document.getElementById("mealDate").value;
-    const mealTypeInput = document.getElementById("mealType").value;
-    const descriptionInput = document.getElementById("mealDescription").value;
-    const caloriesInput = parseInt(document.getElementById("calories").value);
-    const proteinInput = parseInt(document.getElementById("protein").value);
-    const fatsInput = parseInt(document.getElementById("fats").value);
-    const carbsInput = parseInt(document.getElementById("carbs").value);
+        const dateInput = document.getElementById("mealDate").value;
+        const mealTypeInput = document.getElementById("mealType").value;
+        const descriptionInput = document.getElementById("mealDescription").value;
+        const caloriesInput = parseInt(document.getElementById("calories").value);
+        const proteinInput = parseInt(document.getElementById("protein").value);
+        const fatsInput = parseInt(document.getElementById("fats").value);
+        const carbsInput = parseInt(document.getElementById("carbs").value);
 
-    if (!dateInput || !mealTypeInput || !descriptionInput || isNaN(caloriesInput) || isNaN(proteinInput) || isNaN(fatsInput) || isNaN(carbsInput)) {
-        alert("Please fill in all meal fields correctly.");
-        return;
+        if (!dateInput || !mealTypeInput || !descriptionInput || isNaN(caloriesInput) || isNaN(proteinInput) || isNaN(fatsInput) || isNaN(carbsInput)) {
+            alert("Please fill in all meal fields correctly.");
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/meals', {
+                method: 'POST',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: dateInput,
+                    type: mealTypeInput,
+                    description: descriptionInput,
+                    calories: caloriesInput,
+                    protein: proteinInput,
+                    fats: fatsInput,
+                    carbs: carbsInput
+                })
+            });
+            const result = await response.json();
+            console.log('Meal added:', result);
+        } catch (error) {
+            console.error('Error adding meal:', error);
+        }
     }
 
-    try {
-        const response = await fetch('/api/meals', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                date: dateInput,
-                type: mealTypeInput,
-                description: descriptionInput,
-                calories: caloriesInput,
-                protein: proteinInput,
-                fats: fatsInput,
-                carbs: carbsInput
-            })
-        });
-        const result = await response.json();
-        console.log('Meal added:', result);
-    } catch (error) {
-        console.error('Error adding meal:', error);
-    }
-}
 
+    addMealButton.addEventListener("click", () => {
+        event.preventDefault
+        addMeal();
+    });
+});
 
 // render meals function
 
@@ -123,7 +141,7 @@ function applyFilters() {
         row.style.display = showRow ? "" : "none";
 
     });
-} 
+}
 
 // Function to clear all filters and show all meals
 function clearFilters() {
@@ -144,11 +162,8 @@ function clearFilters() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+        
     renderMeals();
-
-    document.getElementById("addMealButton").addEventListener("click", () => {
-        addMeal();
-    });
     
     document.getElementById("refreshButton").addEventListener("click", () => {
         renderMeals();
