@@ -43,6 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
             });
             const result = await response.json();
+
+            if (!response.ok) {
+                console.error('Request failed:', result.message || 'Failed to add meal');
+            }
+
+            await renderMeals();
+            applyFilters();
+
             console.log('Meal added:', result);
         } catch (error) {
             console.error('Error adding meal:', error);
