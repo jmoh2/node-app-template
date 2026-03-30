@@ -6,7 +6,7 @@
         border: 1px solid #c0c8f0;
         border-radius: 10px;
         padding: 14px 18px;
-        max-width: 240px;
+        max-width: 300px;
         font-size: 14px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         z-index: 999;
@@ -47,7 +47,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 40%;
     font-family: var(--fonts);
-    line-height: 120%;
+    line-height: 140%;
 }
 
 body {

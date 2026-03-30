@@ -18,23 +18,15 @@
 <h1>Calorie and Macro Tracker</h1>
 
     <!-- Suggested Meal Card -->
-<div id="mealSuggestionCard" style="
-    background: #f0fff4;
-    border: 1px solid #a8d5b5;
-    border-radius: 10px;
-    padding: 14px 18px;
-    max-width: 100%;
-    font-size: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-">
+<div id="mealSuggestionCard" class="suggestionCard">
     <strong>Suggested Meal</strong>
     <div id="mealSuggestionContent" style="margin-top: 8px; color: #333;">Loading...</div>
     <button id="logMealSuggestionButton" style="margin-top: 10px;">Log This Meal</button>
     <p id="mealSuggestionResult" style="font-size: 12px; margin-top: 6px; color: green;"></p>
 </div>
 
-    <h4>Input Meal Data</h4>
+<div class="container">
+    <h3>Input Meal Data</h3>
 
     <label for="mealDate">Date:</label>
     <input type="date" id="mealDate" required>
@@ -47,8 +39,6 @@
         <option value="dinner">Dinner</option>
         <option value="snack">Snack</option>
     </select>
-
-    <br>
 
     <label for="mealDescription">Meal Description:</label>
     <input type="text" id="mealDescription" required>
@@ -67,25 +57,24 @@
     <label for="carbs">Carbs (g):</label>
     <input type="number" id="carbs" required>
 
-    <br><br>
+    <br>
 
     <button id="addMealButton" type="button" class="tablebutton">Add Meal</button>
+</div>
 
+<br>
+
+<div class="filter-container">
     
-<h4>Filter for Table</h4>
+<h3>Filter for Table</h3>
 
     <label for="dateFrom">From:</label>
     <input type="date" id="dateFrom">
     <label for="dateTo">To:</label>
     <input type="date" id="dateTo">
 
-    <br>
-
     <label for="descriptionFilter">Meal Description:</label>
     <input type="text" id="descriptionFilter">
-
-    <br>
-
     <label for="typeFilter">Meal Type:</label>
     <select id="typeFilter">
         <option value="">All</option>
@@ -94,44 +83,38 @@
         <option value="dinner">Dinner</option>
         <option value="snack">Snack</option>
     </select>
-
-
-    <br>
-
+<br>
     <label for="caloriesMin">Min Calories:</label>
     <input type="number" id="caloriesMin">
     <label for="caloriesMax">Max Calories:</label>
     <input type="number" id="caloriesMax">
 
-    <br>
+<br>
 
     <label for="proteinMin">Min Protein:</label>
     <input type="number" id="proteinMin">
     <label for="proteinMax">Max Protein:</label>
     <input type="number" id="proteinMax">
-
-    <br>
-
+<br>
     <label for="fatsMin">Min Fats:</label>
     <input type="number" id="fatsMin">
     <label for="fatsMax">Max Fats:</label>
     <input type="number" id="fatsMax">
-
-    <br>
-
+ <br>
     <label for="carbsMin">Min Carbs:</label>
     <input type="number" id="carbsMin">
     <label for="carbsMax">Max Carbs:</label>
     <input type="number" id="carbsMax">
 
-
-    <br><br><br>
+    <br>
 
     <button id="applyFiltersButton" type="button" class="tablebutton">Apply Filters</button>
 
     <button id="clearFiltersButton" type="button" class="tablebutton">Clear Filters</button>
 
     <button id="refreshButton" class="tablebutton">Refresh Table</button>
+
+</div>
 
 <!-- Actual Table for Past Meals -->
 
