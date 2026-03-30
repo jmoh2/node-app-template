@@ -7,11 +7,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     DataModel.setToken(token);
 
+    const userHeading = document.getElementById('userHeading');
     const heightInput = document.getElementById('height');
     const weightInput = document.getElementById('weight');
     const fitnessGoalSelect = document.getElementById('fitness_goal');
     const exerciseLevelSelect = document.getElementById('exercise_level');
     const result = document.getElementById('result');
+    displayUserDetailsMessage(userHeading);
 
     // Load and display saved values
     const profile = await DataModel.getUserProfile();
@@ -54,4 +56,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function save() {
     document.getElementById("result").textContent = "Saved!";
+}
+
+async function displayUserDetailsMessage(userHeading) {
+    const userName = await DataModel.getUserName();
+    userHeading.textContent = `${userName}'s User Statistics`;
 }
