@@ -26,6 +26,23 @@
     /* --fonts: Arial, Helvetica, sans-serif; */
 }
 
+.user-message {
+    background-color: var(--darknavy);
+    color: white;
+    padding: 10px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    place-items: center;
+    width: 50%;
+    text-align: center;
+    margin: 0;
+    margin-top: 20px;
+    font-family: var(--fonts);
+    font-size: larger;
+    font-weight: bold;
+    line-height: 200%;
+}
+
 .container {
     background-color: var(--blue);
     padding: 30px;
