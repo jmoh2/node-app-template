@@ -23,7 +23,7 @@
     --white: #FFFFFF;
     --black: #000000;
     --grey: #808080;
-    --fonts: Arial, Helvetica, sans-serif;
+    /* --fonts: Arial, Helvetica, sans-serif; */
 }
 
 .container {
@@ -54,6 +54,7 @@ body {
     background-color: var(--mint);
     margin: 10px;
     padding: 5px;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 .button {
@@ -64,6 +65,7 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family:'JetBrains Mono', monospace;
 }
 
 .tablebutton {

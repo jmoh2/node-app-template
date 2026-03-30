@@ -7,7 +7,7 @@
     --gray:     #D3D3D3;
     --white:    #FFFFFF;
     --black:    #000000;
-    --fonts: Arial, Helvetica, sans-serif;
+    /* --fonts: Arial, Helvetica, sans-serif; */
 }
 
 .logo {
@@ -20,7 +20,9 @@ body {
     background-color: var(--mint);
     margin: 0;
     padding: 0;
+   font-family: 'JetBrains Mono', monospace;
 }
+
 
 .container {
     max-width: 400px;
