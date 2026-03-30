@@ -7,7 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
             DataModel.setToken(token);
         }
 
+    async function displayWorkoutHeader() {
+        try {
+            const userName = await DataModel.getUserName();
+            document.getElementById('workoutHeader').textContent =
+                `${userName}'s Workout Input and History`;
+        } catch (error) {
+            console.error('Error fetching username:', error);
+        }
+    }
 
+    displayWorkoutHeader();
+    
     const submitButton = document.getElementById('submit');
 
     // Event listener for workout submission sending data to the backend
