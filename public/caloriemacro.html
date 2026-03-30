@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="css/workout.css">
 </head>
 <body>
+        <!-- for going back to basepage -->
+    <button class="button" onclick="goHome()">Back</button>
+    <script>
+    function goHome() {
+        window.location.href = '/basepage';
+    }
+    </script>
+
     <!-- Suggested Meal Card -->
 <div id="mealSuggestionCard" style="
     background: #f0fff4;
@@ -23,13 +31,6 @@
     <button id="logMealSuggestionButton" style="margin-top: 10px;">Log This Meal</button>
     <p id="mealSuggestionResult" style="font-size: 12px; margin-top: 6px; color: green;"></p>
 </div>
-    <!-- for going back to basepage -->
-    <button class="button" onclick="goHome()">Back</button>
-    <script>
-    function goHome() {
-        window.location.href = '/basepage';
-    }
-    </script>
 
     <h1>Calorie and Macro Tracker</h1>
 
