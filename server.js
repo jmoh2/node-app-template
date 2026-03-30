@@ -470,6 +470,7 @@ app.get('/api/suggested-workout', authenticateToken, async (req, res) => {
 });
 
 // Route: Log a suggested workout
+// Route: Log a suggested workout
 app.post('/api/log-suggested-workout', authenticateToken, async (req, res) => {
     const { workout_name, workout_type, intensity_level, duration_minutes, calories_burned, notes } = req.body;
 
@@ -491,10 +492,67 @@ app.post('/api/log-suggested-workout', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error logging workout.' });
     }
 });
+
+// Route: Get Suggested Meal based on user's fitness goal
+app.get('/api/suggested-meal', authenticateToken, async (req, res) => {
+    try {
+        const connection = await createConnection();
+
+        const [profileRows] = await connection.execute(
+            'SELECT fitness_goal FROM user_profile WHERE user_id = (SELECT user_id FROM user WHERE email = ?)',
+            [req.user.email]
+        );
+
+        if (profileRows.length === 0) {
+            await connection.end();
+            return res.status(404).json({ message: 'Profile not found.' });
+        }
+
+        const fitnessGoal = profileRows[0].fitness_goal;
+
+        const [mealRows] = await connection.execute(
+            'SELECT * FROM meal_suggestions WHERE linked_goal = ? ORDER BY RAND() LIMIT 1',
+            [fitnessGoal]
+        );
+
+        await connection.end();
+
+        if (mealRows.length === 0) {
+            return res.status(404).json({ message: 'No suggested meal found.' });
+        }
+
+        res.status(200).json(mealRows[0]);
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error retrieving suggested meal.' });
+    }
+});
+
+// Route: Log a suggested meal
+app.post('/api/log-suggested-meal', authenticateToken, async (req, res) => {
+    const { meal_title, description, calories, protein, fats, carbs } = req.body;
+
+    try {
+        const connection = await createConnection();
+
+        const today = new Date().toISOString().split('T')[0];
+
+        await connection.execute(
+            `INSERT INTO meals (user_id, meal_date, meal_type, description, calories, protein, fats, carbs)
+             VALUES ((SELECT user_id FROM user WHERE email = ?), ?, 'suggestion', ?, ?, ?, ?, ?)`,
+            [req.user.email, today, description || meal_title, calories, protein, fats, carbs]
+        );
+
+        await connection.end();
+        res.status(201).json({ message: 'Meal logged successfully!' });
+    } catch (error) {
+        console.error('DB ERROR:', error);
+        res.status(500).json({ message: 'Error logging meal.' });
+    }
+});
 //////////////////////////////////////
 //END ROUTES TO HANDLE API REQUESTS
 //////////////////////////////////////
-
 
 // Start the server
 app.listen(port, () => {

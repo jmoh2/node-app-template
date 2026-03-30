@@ -223,5 +223,55 @@ const DataModel = (function () {
                 return false;
             }
         },
+        // Gets the meals for the sudjestions
+        getSuggestedMeal: async function () {
+    if (!token) {
+        console.error("Token is not set.");
+        return null;
+    }
+    try {
+        const response = await fetch('/api/suggested-meal', {
+            method: 'GET',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json',
+            },
+        });
+        if (!response.ok) {
+            console.error("Error fetching suggested meal:", await response.json());
+            return null;
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error in API call:", error);
+        return null;
+    }
+},
+
+    // Logs the meal sudgestions
+    logSuggestedMeal: async function (meal) {
+        if (!token) {
+            console.error("Token is not set.");
+            return false;
+        }
+        try {
+            const response = await fetch('/api/log-suggested-meal', {
+                method: 'POST',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(meal),
+            });
+            if (!response.ok) {
+                console.error("Error logging suggested meal:", await response.json());
+                return false;
+            }
+            return true;
+        } catch (error) {
+            console.error("Error in API call:", error);
+            return false;
+        }
+},
     };
 })();

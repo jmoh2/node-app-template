@@ -7,7 +7,43 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             DataModel.setToken(token);
         }
+    // Load and display suggested meal
+    async function loadSuggestedMeal() {
+    const suggestion = await DataModel.getSuggestedMeal();
+    const content = document.getElementById('mealSuggestionContent');
+    const logButton = document.getElementById('logMealSuggestionButton');
+    const result = document.getElementById('mealSuggestionResult');
 
+    if (!suggestion) {
+        content.textContent = 'No suggestion available.';
+        logButton.style.display = 'none';
+        return;
+    }
+
+    content.innerHTML = `
+        <b>${suggestion.meal_title}</b><br>
+        ${suggestion.description}<br>
+        Calories: ${suggestion.calories} &nbsp;|&nbsp;
+        Protein: ${suggestion.protein}g &nbsp;|&nbsp;
+        Carbs: ${suggestion.carbs}g &nbsp;|&nbsp;
+        Fats: ${suggestion.fats}g
+    `;
+
+    logButton.addEventListener('click', async () => {
+        const success = await DataModel.logSuggestedMeal(suggestion);
+        if (success) {
+            result.textContent = 'Meal logged!';
+            result.style.color = 'green';
+            await renderMeals();
+            applyFilters();
+        } else {
+            result.textContent = 'Error logging meal.';
+            result.style.color = 'red';
+        }
+    });
+}
+
+loadSuggestedMeal();
     const addMealButton = document.getElementById("addMealButton");
 
     async function addMeal(mealData) {
