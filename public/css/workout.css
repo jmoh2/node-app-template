@@ -94,6 +94,105 @@ table {
 }
 
 table, th, td {
-    border: 1px solid black;
-    background-color: var(--blue);
+    border: none;
+    background: none;
+}
+
+
+
+/* workout table styling */
+
+.card {
+    background: var(--blue);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 30px 0;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+/* Table base */
+#workoutTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: #000000;
+    font-size: 14px;
+}
+
+/* Header */
+#workoutTable thead {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#workoutTable th {
+    text-align: left;
+    padding: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--darknavy)
+}
+
+/* Rows */
+#workoutTable td {
+    padding: 12px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Zebra striping */
+#workoutTable tbody tr:nth-child(even) {
+    background: rgba(39, 12, 12, 0.07);
+}
+
+/* Hover effect */
+#workoutTable tbody tr:hover {
+    background: rgba(41, 26, 26, 0.15);
+    transition: 0.2s ease;
+}
+
+
+
+
+/* meals table styling */
+
+/* Table base */
+#mealTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: #000000;
+    font-size: 14px;
+}
+
+/* Header */
+#mealTable thead {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#mealTable th {
+    text-align: left;
+    padding: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--darknavy)
+}
+
+/* Rows */
+#mealTable td {
+    padding: 12px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Zebra striping */
+#mealTable tbody tr:nth-child(even) {
+    background: rgba(39, 12, 12, 0.07);
+}
+
+/* Hover effect */
+#mealTable tbody tr:hover {
+    background: rgba(41, 26, 26, 0.15);
+    transition: 0.2s ease;
 }
