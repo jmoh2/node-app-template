@@ -18,6 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     displayWorkoutHeader();
+
+    async function displayUserGoal() {
+    try {
+        const profile = await DataModel.getUserProfile();
+        let goalText = profile?.fitness_goal;
+
+        if (!goalText) return;
+
+        goalText = goalText.replace(/_/g, ' ');
+
+        document.getElementById('currentGoal').textContent = goalText;
+        document.getElementById('goalCard').style.display = 'inline-flex';
+
+    } catch (error) {
+        console.error('Error fetching goal:', error);
+    }
+}
+
+    displayUserGoal();
     
     const submitButton = document.getElementById('submit');
 

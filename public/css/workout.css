@@ -43,6 +43,31 @@
     line-height: 200%;
 }
 
+.goal-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  margin-left: 5px;
+  padding: 6px 14px;
+
+  background-color: #d9ecff;
+  color: #074173;
+
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 500;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.goal-label {
+  font-weight: 600;
+}
+
+#currentGoal {
+  font-weight: 500;
+}
 
 
 .container {
