@@ -7,6 +7,37 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             DataModel.setToken(token);
         }
+
+    async function displayCalorieMacroHeader() {
+        try {
+            const userName = await DataModel.getUserName();
+            document.getElementById('calorieMacroHeader').textContent =
+                `${userName}'s Calorie and Macro Tracker`;
+        } catch (error) {
+            console.error('Error fetching username:', error);
+        }
+    }
+
+    displayCalorieMacroHeader();
+
+    async function displayUserGoal() {
+    try {
+        const profile = await DataModel.getUserProfile();
+        let goalText = profile?.fitness_goal;
+        
+        if (!goalText) return;
+
+        goalText = goalText.replace(/_/g, ' ');
+
+        document.getElementById('currentGoal').textContent = goalText;
+        document.getElementById('goalCard').style.display = 'inline-flex';
+
+    } catch (error) {
+        console.error('Error fetching goal:', error);
+    }
+}
+
+    displayUserGoal();
     // Load and display suggested meal
     async function loadSuggestedMeal() {
     const suggestion = await DataModel.getSuggestedMeal();
