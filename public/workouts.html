@@ -21,16 +21,20 @@
     function goHome() {window.location.href = '/basepage';}
     </script>
 
-    <br><br><br>
+    <br><br>
     
     <h1 id="workoutHeader" class="user-message">Workout Input and History</h1>
     
     <div class="container">
+    <h3>New Workout Input</h3>
 
+    <div class="form-group">
     <label for="workoutName">Workout Type:</label>
     <input type="text" id="workoutName" name="workoutName">
+    </div>
 
     <!-- Dropdown menu with broad workout options: Cardio, Strength Training, HIIT, Flexibility/Yoga, Sports, Core, Recovery, and Other -->
+  <div class="form-group">
     <label for="workoutType">Workout Type:</label>
     <select id="workoutType" name="workoutType">
         <option value="cardio">Cardio</option>
@@ -43,50 +47,66 @@
         <option value="balance">Balance Training</option>
         <option value="other">Other</option>
     </select>
+</div>
 
+<div class="form-group">
     <label for="workoutIntensity">Intensity:</label>
     <select id="workoutIntensity" name="workoutIntensity">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
     </select>
+</div>
 
+<div class="form-group">
     <label for="caloriesBurned">Calories Burned:</label>
     <input type="number" id="caloriesBurned" name="caloriesBurned" min="0"> 
+</div>
 
-    <br>
-
+<div class="form-group">
     <label for="duration">Duration (minutes):</label>
     <input type="number" id="duration" name="duration" min="1">
+</div>
 
-
+<div class="form-group">
     <label for="notes">Notes:</label>
     <input type="text" id="notes" name="notes">
+</div>
 
+<div class="form-group">
     <label for="date">Date:</label>
     <input type="date" id="date" name="date"> 
-    <br>
+</div>
     
     <button id="submit" class="button">Submit</button>
-    </div>
+
+</div>
 
     <br><br>
 
     <!-- Filter for Table -->
-     <div class="filter-container">
+    <div class="filter-container">
 
     <h3>Filter for Table</h3>
 
+    <div class="form-group">
     <label for="dateFrom">From:</label>
     <input type="date" id="dateFrom">
+    </div>
+
+    <div class="form-group">
     <label for="dateTo">To:</label>
     <input type="date" id="dateTo">
+    </div>
 
-    <br>
+    <!-- <br> -->
     
+    <div class="form-group">
     <label for="nameFilter">Workout Name:</label>
     <input type="text" id="nameFilter">
+    </div>
 
+    <div class="form-group">
     <label for="typeFilter">Workout Type:</label>
     <select id="typeFilter">
         <option value="">All</option>
@@ -99,11 +119,12 @@
         <option value="recovery">Recovery</option>
         <option value="balance">Balance Training</option>
         <option value="other">Other</option>
-    
     </select>
+    </div>
 
-    <br>
+    <!-- <br> -->
 
+    <div class="form-group">
     <label for="intensityFilter">Intensity:</label>
     <select id="intensityFilter">
         <option value="">All</option>
@@ -111,29 +132,37 @@
         <option value="medium">Medium</option>
         <option value="high">High</option>
     </select>
+    </div>
 
-    <br>
-    
-    <label for="durationMin">Min Duration:</label>
-    <input type="number" id="durationMin">
-    <label for="durationMax">Max Duration:</label>
-    <input type="number" id="durationMax">
+    <div class="form-group">
+        <label for="durationMin">Min Duration:</label>
+        <input type="number" id="durationMin">
+    </div>
 
-    <br>
+    <div class="form-group">
+        <label for="durationMax">Max Duration:</label>
+        <input type="number" id="durationMax">
+    </div>
 
-    <label for="caloriesMin">Min Calories:</label>
-    <input type="number" id="caloriesMin">
-    <label for="caloriesMax">Max Calories:</label>
-    <input type="number" id="caloriesMax">
+    <div class="form-group">
+        <label for="caloriesMin">Min Calories:</label>
+        <input type="number" id="caloriesMin">
+    </div>
 
-    <br><br>
+    <div class="form-group">
+        <label for="caloriesMax">Max Calories:</label>
+        <input type="number" id="caloriesMax">
+    </div>
 
+    <!-- <br><br> -->
+
+    <div class="button-row">
     <button id="applyFiltersButton" type="button" class="tablebutton">Apply Filters</button>
-
     <button id="clearFiltersButton" type="button" class="tablebutton">Clear Filters</button>
-
     <button id="refreshButton" class="tablebutton">Refresh Table</button>
     </div>
+
+</div>
     
 <!-- Actual Table for Past Workouts -->
 

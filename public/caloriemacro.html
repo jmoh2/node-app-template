@@ -28,9 +28,12 @@
 <div class="container">
     <h3>Input Meal Data</h3>
 
+    <div class="form-group">
     <label for="mealDate">Date:</label>
     <input type="date" id="mealDate" required>
+    </div>
 
+     <div class="form-group">
     <label for="mealType">Meal Type:</label>
     <select id="mealType" required>
         <option value="">Select</option>
@@ -39,25 +42,32 @@
         <option value="dinner">Dinner</option>
         <option value="snack">Snack</option>
     </select>
+    </div>
 
+     <div class="form-group">
     <label for="mealDescription">Meal Description:</label>
     <input type="text" id="mealDescription" required>
-
-    <br>
-
+    </div>
+    
+     <div class="form-group">
     <label for="calories">Calories:</label>
     <input type="number" id="calories" required>
+    </div>
 
+    <div class="form-group">
     <label for="protein">Protein (g):</label>
     <input type="number" id="protein" required>
+    </div>
 
+     <div class="form-group">
     <label for="fats">Fats (g):</label>
     <input type="number" id="fats" required>
+    </div>
 
+     <div class="form-group">
     <label for="carbs">Carbs (g):</label>
     <input type="number" id="carbs" required>
-
-    <br>
+    </div>
 
     <button id="addMealButton" type="button" class="tablebutton">Add Meal</button>
 </div>
@@ -68,13 +78,22 @@
     
 <h3>Filter for Table</h3>
 
+    <div class="form-group">
     <label for="dateFrom">From:</label>
     <input type="date" id="dateFrom">
+    </div>
+
+    <div class="form-group">
     <label for="dateTo">To:</label>
     <input type="date" id="dateTo">
+    </div>
 
+    <div class="form-group">
     <label for="descriptionFilter">Meal Description:</label>
     <input type="text" id="descriptionFilter">
+    </div>
+
+    <div class="form-group">
     <label for="typeFilter">Meal Type:</label>
     <select id="typeFilter">
         <option value="">All</option>
@@ -83,35 +102,50 @@
         <option value="dinner">Dinner</option>
         <option value="snack">Snack</option>
     </select>
-<br>
+    </div>
+
+    <div class="form-group">
     <label for="caloriesMin">Min Calories:</label>
     <input type="number" id="caloriesMin">
+    </div>
+
+    <div class="form-group">
     <label for="caloriesMax">Max Calories:</label>
     <input type="number" id="caloriesMax">
+    </div>
 
-<br>
-
+    <div class="form-group">
     <label for="proteinMin">Min Protein:</label>
     <input type="number" id="proteinMin">
+    </div>
+
+    <div class="form-group">
     <label for="proteinMax">Max Protein:</label>
     <input type="number" id="proteinMax">
-<br>
+    </div>
+
+    <div class="form-group">
     <label for="fatsMin">Min Fats:</label>
     <input type="number" id="fatsMin">
+    </div>
+
+    <div class="form-group">
     <label for="fatsMax">Max Fats:</label>
     <input type="number" id="fatsMax">
- <br>
+    </div>
+
+    <div class="form-group">
     <label for="carbsMin">Min Carbs:</label>
     <input type="number" id="carbsMin">
+    </div>
+
+    <div class="form-group">
     <label for="carbsMax">Max Carbs:</label>
     <input type="number" id="carbsMax">
-
-    <br>
+    </div>
 
     <button id="applyFiltersButton" type="button" class="tablebutton">Apply Filters</button>
-
     <button id="clearFiltersButton" type="button" class="tablebutton">Clear Filters</button>
-
     <button id="refreshButton" class="tablebutton">Refresh Table</button>
 
 </div>
