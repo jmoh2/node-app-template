@@ -7,22 +7,22 @@
     <link rel="stylesheet" href="css/workout.css">
 </head>
 <body>
-     <!-- Suggested Workout Card -->
-    <div id="suggestionCard" class="suggestionCard">
-        <strong>Suggested Workout</strong>
-        <div id="suggestionContent" style="margin-top: 18px; color: #333;">Loading...</div>
-        <button id="logSuggestionButton" style="margin-top: 18px; width: 100%;" class="button">Log This Workout</button>
-        <p id="suggestionResult" style="font-size: 12px; margin-top: 6px; color: green;"></p>
+    <div class="header-bar">
+        <button class="button" onclick="goHome()">Back</button>
+        <div></div>
     </div>
 
-    <!-- for going back to basepage -->
-    <button class="button" onclick="goHome()">Back</button>
     <script>
     function goHome() {window.location.href = '/basepage';}
     </script>
 
-    <br><br>
-    
+    <div id="suggestionCard" class="suggestionCard">
+        <strong>Suggested Workout</strong>
+        <div id="suggestionContent" style="margin-top: 12px; color: #333;">Loading...</div>
+        <button id="logSuggestionButton" style="margin-top: 12px; width: 100%;" class="button">Log This Workout</button>
+        <p id="suggestionResult" style="font-size: 12px; margin-top: 6px; color: green;"></p>
+    </div>
+
     <h1 id="workoutHeader" class="user-message">Workout Input and History</h1>
 
 <div id="goalCard" class="goal-card" style="display: none;">

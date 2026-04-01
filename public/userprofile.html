@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="css/userprofile.css">
 </head>
 
-<!-- for going back to basepage -->
-<button class="button" onclick="goHome()">Back</button>
-<script>
-function goHome() {
-    window.location.href = '/basepage';
-}
-</script>
-
 <body>
-   
-<div class="user-message">
+    <div class="header-bar">
+        <button class="button" onclick="goHome()">Back</button>
+        <div></div>
+    </div>
+    <script>
+    function goHome() {
+        window.location.href = '/basepage';
+    }
+    </script>
+
+    <div class="user-message">
     <h1 id="userHeading"></h1>
 </div>
 

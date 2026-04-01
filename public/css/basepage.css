@@ -1,117 +1,192 @@
 :root {
-    --navy:  #074173;
-    --darknavy: #042643;
-    --blue:  #a8d8f0;
-    --mint:  #C2EDE6;
-    --green: #C5FF95;
-    --forest-green: #228B22;
-    --dark-green: #006400;
-    --white: #FFFFFF;
-    --black: #000000;
-    --grey: #808080;
+    --primary-blue: #1e5a96;
+    --secondary-blue: #2e7bb4;
+    --light-blue: #e8f4f8;
+    --accent-green: #27a745;
+    --light-green: #e8f5e9;
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-light: #6b7280;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(180deg, #92cec3 0%, #e8f4f8 100%);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'JetBrains Mono', monospace;
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
 }
 
 .logo {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 120px;
+    height: auto;
+    margin: 40px auto 20px;
 }
 
-.welcome-message {
-    background-color: var(--darknavy);
-    color: white;
-    padding: 20px;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    place-items: center;
-    width: 40%;
-    margin: 0 auto;
-    margin-top: 20px;
-    font-family: var(--fonts);
-    font-weight: bold;
-    line-height: 200%;
-}
-
-body {
-    background-color: var(--mint);
-    margin: 0;
-    padding: 0;
-    font-family: 'JetBrains Mono', monospace;
-}
-
-.container {
-    background-color: var(--blue);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    margin: 0 auto;
-    margin-top: 20px;
-    font-family: var(--fonts);
-    font-weight: bold;
-    line-height: 200%;
-}
-
-.button {
-    width: 100%;
-    padding: 10px;
-    background-color: var(--navy);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.button:hover {
-    background-color: var(--darknavy);
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    border-bottom: 2px solid var(--light-blue);
 }
 
 .logout-btn {
-    background-color: red;
-    color: white;
+    background: #ef4444;
+    color: var(--white);
     border: none;
-    padding: 10px 16px;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: bold;
-    margin: 20px;
-    font-family:'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    font-family: inherit;
 }
 
 .logout-btn:hover {
-    background-color: darkred;
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.welcome-message {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    color: var(--white);
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    width: 90%;
+    max-width: 700px;
+    margin: 30px auto 0;
+    text-align: center;
+}
+
+.welcome-message h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.welcome-message p {
+    font-size: 16px;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+.container {
+    background: var(--white);
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    width: 90%;
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+.container h2 {
+    color: var(--primary-blue);
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.button:active {
+    transform: translateY(0);
 }
 
 .dashboard {
-    background-color: var(--white);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    margin: 0 auto;
-    margin-top: 20px;
-    font-family: var(--fonts);
-    font-weight: bold;
-    line-height: 200%;
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 .dashboard-item {
-    width: 60%;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: var(--forest-green);
-    color: white;
-    border-radius: 5px;
-    font-family: var(--fonts);
-    font-weight: bold;
-    width: 60%;
-    margin: 0 auto;
-    margin-top: 20px;
+    background: linear-gradient(135deg, var(--accent-green) 0%, #1e8e41 100%);
+    color: var(--white);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.dashboard-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.dashboard-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    opacity: 0.95;
+}
+
+.dashboard-item p {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.progress-graph {
+    background: var(--white);
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    border-left: 4px solid var(--primary-blue);
+}
+
+.progress-graph h1 {
+    color: var(--primary-blue);
+    font-size: 20px;
+    font-weight: 700;
 }
 
 img {
-    height    : 100%;     
-    width     : auto;     
-    max-height: 100px;    
-    object-fit: contain;
+    max-width: 100%;
+    height: auto;
 }
